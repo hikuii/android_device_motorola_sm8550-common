@@ -22,9 +22,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay-lineage
-
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
 PRODUCT_PACKAGES += \
@@ -34,9 +31,6 @@ PRODUCT_PACKAGES += \
     WifiResCommon_Sys \
     FrameworksResTarget \
     WifiResTarget
-
-# Add common definitions for Qualcomm
-$(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # A/B
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
@@ -117,9 +111,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
-
-# Charger
-WITH_LINEAGE_CHARGER := false
 
 # Display
 PRODUCT_PACKAGES += \
@@ -216,24 +207,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.keystore.app_attest_key.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.keystore.app_attest_key.xml \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 
-# Lineage Health
-PRODUCT_PACKAGES += \
-    vendor.lineage.health-service.default
-
-$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
-$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
-$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/device/force_charging_disable)
-$(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
-
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay-service.sdm \
-    vendor.lineage.livedisplay-service.sysfs
-
-$(call soong_config_set,livedisplay_sdm,enable_dm,false)
-$(call soong_config_set,livedisplay_sysfs,enable_af,true)
-$(call soong_config_set,livedisplay_sysfs,enable_se,true)
-
 # Media
 PRODUCT_COPY_FILES += \
     $(AUDIO_HAL_DIR)/configs/common/codec2/media_codecs_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2_audio.xml \
@@ -247,11 +220,6 @@ PRODUCT_PACKAGES += \
 # Memtrack
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
-
-# MotoActions
-PRODUCT_PACKAGES += \
-    MotoActions \
-    MotoCommonOverlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -377,13 +345,6 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal-service.qti
 
-# Touch
-PRODUCT_PACKAGES += \
-    vendor.lineage.touch-service.motorola \
-    vendor.lineage.touch-service.moto_sm8550
-
-$(call soong_config_set, MOTOROLA_TOUCH, HIGH_TOUCH_POLLING_PATH, /sys/class/touchscreen/primary/interpolation)
-
 # Update engine
 PRODUCT_PACKAGES += \
     update_engine \
@@ -420,8 +381,7 @@ PRODUCT_COPY_FILES += \
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     device/motorola/sm8550-common/device_framework_matrix.xml \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE += device/motorola/sm8550-common/framework_manifest.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 DEVICE_MANIFEST_SKUS := kalama
