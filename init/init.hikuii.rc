@@ -1,0 +1,8 @@
+
+# HONAMI
+# init.hikuii.rc
+
+on post-fs-data
+    # prevent external querying of selinux state
+    chmod 0640 /sys/fs/selinux/enforce
+

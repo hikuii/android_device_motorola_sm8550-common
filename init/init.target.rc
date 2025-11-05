@@ -63,6 +63,8 @@ import /vendor/etc/init/hw/init.qti.kernel.rc
 
 import /vendor/etc/init/hw/init.mmi.rc
 
+import /vendor/etc/init/hw/init.hikuii.rc
+
 on early-init
     write /proc/sys/kernel/printk_devkmsg ratelimited
     export MEMTAG_OPTIONS off
