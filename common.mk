@@ -118,6 +118,10 @@ PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
 
+# Camera
+PRODUCT_PACKAGES += \
+    Camera2
+
 # Charger
 WITH_LINEAGE_CHARGER := false
 
